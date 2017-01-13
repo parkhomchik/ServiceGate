@@ -9,26 +9,27 @@ import (
 func main() {
 	router := gin.Default()
 
-	// Simple group: v1
-	v1 := router.Group("/v1/services")
+	// version 1
+	v1 := router.Group("/v1/service")
 	{
-		v1.GET("/", test)
-		v1.GET("/{id}", test)
-		v1.POST("/", test)
-		v1.PUT("/{id}", test)
-		v1.DELETE("/{id}")
+		v1.POST("/", request) // INSERT
 	}
 
-	// Simple group: v2
-	v2 := router.Group("/v2")
+	// version 2
+	v2 := router.Group("/v2/service")
 	{
-		v2.POST("/login", test)
-		v2.POST("/submit", test)
-		v2.POST("/read", test)
+		v2.POST("/", requestv2) // INSERT
 	}
 	router.Run(":8080")
 }
 
-func test(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"handlerName": "xxx"})
+func request(c *gin.Context) {
+	//var json Request
+	if c.BindJSON(&json) == nil {
+	}
+	c.JSON(http.StatusOK, json)
+}
+
+func requestv2(c *gin.Context) {
+	c.JSON(http.StatusNotImplemented, gin.H{"error": "not implemented"})
 }
