@@ -15,13 +15,8 @@ func main() {
 		v1.POST("/", request) // INSERT
 	}
 
-<<<<<<< HEAD
 	// version 2
 	v2 := router.Group("/v2/service")
-=======
-	// Simple group: v2
-	v2 := router.Group("/v2/services")
->>>>>>> a1a8ed669e0805368dbca2e6684af3a0108e8df8
 	{
 		v2.POST("/", requestv2) // INSERT
 	}
