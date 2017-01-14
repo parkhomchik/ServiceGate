@@ -3,22 +3,25 @@ package main
 import (
 	"net/http"
 
-	"github.com/parkhomchik/ServiceGate/models"
-	"github.com/jinzhu/gorm"
-    _ "github.com/jinzhu/gorm/dialects/postgres"
-	"gopkg.in/gin-gonic/gin.v1"
 	"fmt"
 	"log"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/parkhomchik/ServiceGate/models"
+	"github.com/parkhomchik/ServiceGate/models/database"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 func main() {
 	//DataBase
 	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=servicegate sslmode=disable password=parkhom4ik")
-  	defer db.Close()
+	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	database.Migrate(db)
 
 	router := gin.Default()
 
