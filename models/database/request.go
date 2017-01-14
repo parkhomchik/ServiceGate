@@ -5,6 +5,7 @@ import "github.com/jinzhu/gorm"
 //Request table
 type Request struct {
 	gorm.Model
+	//ID int64
 	ExternalID  int64
 	ServiceName string
 	CommandName string
