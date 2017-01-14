@@ -4,11 +4,22 @@ import (
 	"net/http"
 
 	"github.com/parkhomchik/ServiceGate/models"
-
+	"github.com/jinzhu/gorm"
+    _ "github.com/jinzhu/gorm/dialects/postgres"
 	"gopkg.in/gin-gonic/gin.v1"
+	"fmt"
+	"log"
 )
 
 func main() {
+	//DataBase
+	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=servicegate sslmode=disable password=parkhom4ik")
+  	defer db.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+
 	router := gin.Default()
 
 	// version 1
@@ -26,6 +37,9 @@ func main() {
 }
 
 func request(c *gin.Context) {
+
+	fmt.Println(c.ClientIP())
+
 	var json models.Request
 	if c.BindJSON(&json) == nil {
 		// check Portal
