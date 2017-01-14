@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/parkhomchik/ServiceGate/models"
+
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
@@ -24,12 +26,31 @@ func main() {
 }
 
 func request(c *gin.Context) {
-	//var json Request
+	var json models.Request
 	if c.BindJSON(&json) == nil {
+		// check Portal
+		//json.PortalName
+
+		//check Service
+
+		//check PortalService
+
+		//check Command
+
+		//check Parameters
+
+		//check created record
+
+		//execute
+
+		// return
+		c.JSON(http.StatusOK, json)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "StatusBadRequest"})
 	}
-	c.JSON(http.StatusOK, json)
+
 }
 
 func requestv2(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, gin.H{"error": "not implemented"})
+	c.JSON(http.StatusNotImplemented, gin.H{"status": "not implemented"})
 }
