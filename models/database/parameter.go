@@ -1,9 +1,9 @@
 package database
 
-import "github.com/jinzhu/gorm"
-
+//Parameter
 type Parameter struct {
-	gorm.Model
-	Name  string
-	Value string
+	ID        int
+	RequestID int `gorm:"index"`
+	Name      string
+	Value     string
 }
