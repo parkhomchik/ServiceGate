@@ -1,8 +1,8 @@
-package models
+package api
 
-//Service Сервис
+//Service основно класс
 type Service struct {
-	ID         int    `form:"id" json:"id" binding:"required"`
-	Name       string `form:"name" json:"name" binding:"required"`
-	Parameters []Parameter
+	ID 		int32 		`json:"id"`
+	Name 	string		`json:"name"`
+	Enable	bool		`json:"enable"`
 }
