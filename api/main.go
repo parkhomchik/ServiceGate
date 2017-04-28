@@ -12,7 +12,7 @@ type TodoService struct {
 }
 
 func (s *TodoService) getDb() (gorm.DB, error) {
-	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=services sslmode=disable password=parkhom4ik")
+	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=services sslmode=disable password=password")
  	return *db, err
 }
 
