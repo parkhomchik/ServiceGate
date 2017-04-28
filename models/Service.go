@@ -1,4 +1,4 @@
-package api
+package models
 
 //Service основно класс
 type Service struct {
