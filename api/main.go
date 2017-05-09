@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/parkhomchik/ServiceGate/models"
-	//"github.com/parkhomchik/ServiceGate/db"
+	"github.com/parkhomchik/ServiceGate/db"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/jinzhu/gorm"
@@ -12,7 +12,7 @@ type TodoService struct {
 }
 
 func (s *TodoService) getDb() (gorm.DB, error) {
-	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=services sslmode=disable password=password")
+	db, err := gorm.Open("postgres", "host=localhost port=5433 user=postgres dbname=services sslmode=disable password=parkhom4ik")
  	return *db, err
 }
 
@@ -36,7 +36,8 @@ func main() {
 	}
 	db.SingularTable(true)
 
-	serviceResource := ServiceResource{db : db}
+	serviceResource := DataBaseManager.ServiceResource{Db: db}
+	//serviceResource := ServiceResource{db : db}
 
 	r := gin.Default()
 

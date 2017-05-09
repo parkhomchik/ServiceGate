@@ -1,4 +1,4 @@
-package main
+package DataBaseManager
 
 import (
 	"github.com/parkhomchik/ServiceGate/models"
@@ -6,11 +6,10 @@ import (
 	"github.com/jinzhu/gorm"
 	"log"
 	"strconv"
-	//"time"
 )
 
 type ServiceResource struct {
-	db gorm.DB
+	Db gorm.DB
 }
 
 func (tr *ServiceResource) CreateService(c *gin.Context) {
@@ -22,16 +21,17 @@ func (tr *ServiceResource) CreateService(c *gin.Context) {
 	}
 
 	//service.Created = int32(time.Now().Unix())
-
-	tr.db.Save(&service)
-
-	c.JSON(201, service)
+	if err := tr.Db.Save(&service).Error; err != nil {
+		c.JSON(404, err)
+		return
+	}
+	c.JSON(201, service)	
 }
 
 func (tr *ServiceResource) GetAllServices(c *gin.Context) {
 	var services []models.Service
 
-	tr.db.Find(&services)
+	tr.Db.Find(&services)
 
 	c.JSON(200, services)
 }
@@ -45,7 +45,7 @@ func (tr *ServiceResource) GetService(c *gin.Context) {
 
 	var service models.Service
 
-	if tr.db.First(&service, id).RecordNotFound() {
+	if tr.Db.First(&service, id).RecordNotFound() {
 		c.JSON(404, gin.H{"error": "not found"})
 	} else {
 		c.JSON(200, service)
@@ -69,10 +69,10 @@ func (tr *ServiceResource) UpdateService(c *gin.Context) {
 
 	var existing models.Service
 
-	if tr.db.First(&existing, id).RecordNotFound() {
+	if tr.Db.First(&existing, id).RecordNotFound() {
 		c.JSON(404, models.NewError("not found"))
 	} else {
-		tr.db.Save(&service)
+		tr.Db.Save(&service)
 		c.JSON(200, service)
 	}
 
@@ -119,10 +119,10 @@ func (tr *ServiceResource) DeleteService(c *gin.Context) {
 
 	var service models.Service
 
-	if tr.db.First(&service, id).RecordNotFound() {
+	if tr.Db.First(&service, id).RecordNotFound() {
 		c.JSON(404, models.NewError("not found"))
 	} else {
-		tr.db.Delete(&service)
+		tr.Db.Delete(&service)
 		c.Data(204, "application/json", make([]byte, 0))
 	}
 }

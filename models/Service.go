@@ -2,7 +2,7 @@ package models
 
 //Service основно класс
 type Service struct {
-	ID 		int32 		`json:"id"`
-	Name 	string		`json:"name"`
-	Enable	bool		`json:"enable"`
+	ID 		int32 		
+	Name 	string		`gorm:"type:varchar(100);unique_index"`
+	Enable	bool		
 }
